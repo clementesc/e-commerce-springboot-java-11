@@ -26,6 +26,9 @@ public class User implements Serializable {
     @Column(length = 20, nullable = false)
     private String password;
 
+    public User() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
