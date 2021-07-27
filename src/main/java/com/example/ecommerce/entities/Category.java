@@ -1,5 +1,6 @@
 package com.example.ecommerce.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class Category implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Transient
+    // mappedBy = categories, where categories is the attribute (variable) name
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
     public Category() {
