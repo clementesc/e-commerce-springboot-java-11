@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,16 +18,18 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotEmpty
     @Column(length = 50, nullable = false)
     private String name;
 
-    @Column(length = 255, nullable = false)
+    @NotEmpty
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
     private Double price;
 
-    @Column(length = 255)
+    @Column()
     private String imgUrl;
 
     // "Set" type ensures uniques categories
