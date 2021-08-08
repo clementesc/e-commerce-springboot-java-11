@@ -64,6 +64,15 @@ public class Order implements Serializable {
         return items;
     }
 
+    // Necessary "get" prefix for correct Json formation
+    public Double getTotal(){
+        double sum = 0.0;
+        for (OrderItem x: items){
+            sum += x.getSubTotal();
+        }
+        return sum;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
