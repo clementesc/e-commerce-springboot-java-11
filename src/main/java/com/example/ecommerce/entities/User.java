@@ -2,8 +2,12 @@ package com.example.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +23,22 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @NotBlank
+    @Pattern(regexp = "^[A-Z]+(.)*")
     @Column(length = 100, nullable = false)
     private String name;
 
+    @NotBlank
+    @Email(message = "Campo inválido")
     @Column(length = 50, nullable = false)
     private String email;
 
+    @NotBlank
     @Column(length = 20, nullable = false)
     private String phone;
 
+    @NotBlank
+    @Length(min = 5)
     @Column(length = 20, nullable = false)
     private String password;
 

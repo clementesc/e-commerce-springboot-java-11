@@ -4,11 +4,14 @@ import com.example.ecommerce.entities.User;
 import com.example.ecommerce.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -29,7 +32,7 @@ public class UserResource {
     }
 
     @PostMapping
-    public ResponseEntity<User> insert(@RequestBody User user){
+    public ResponseEntity<User> insert(@RequestBody @Valid User user){
         user = service.insert(user);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(user.getId()).toUri();
@@ -45,8 +48,9 @@ public class UserResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<User> update (@PathVariable("id") Integer id, @RequestBody User user){
+    public ResponseEntity<User> update (@PathVariable("id") Integer id, @RequestBody @Valid User user){
         user = service.update(id, user);
         return ResponseEntity.ok().body(user);
     }
+
 }
