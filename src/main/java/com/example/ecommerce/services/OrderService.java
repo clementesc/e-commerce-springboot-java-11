@@ -3,6 +3,7 @@ package com.example.ecommerce.services;
 import com.example.ecommerce.entities.Order;
 import com.example.ecommerce.entities.User;
 import com.example.ecommerce.repositories.OrderRepository;
+import com.example.ecommerce.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class OrderService {
 
     public Order findById(Integer id){
         Optional<Order> opt = repository.findById(id);
-        return opt.get();
+        //return opt.get();
+        return opt.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 }
